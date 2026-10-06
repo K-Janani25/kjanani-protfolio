@@ -1,0 +1,889 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Portfolio</title>
+
+  <style>
+    /* =========================
+       RESET & GLOBAL STYLES
+    ========================== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
+    :root {
+      --primary: #6366f1;
+      --secondary: #8b5cf6;
+      --bg: #f8fafc;
+      --card: #ffffff;
+      --text: #1e293b;
+      --muted: #64748b;
+      --border: #e2e8f0;
+    }
+
+    body.dark {
+      --bg: #0f172a;
+      --card: #1e293b;
+      --text: #f8fafc;
+      --muted: #cbd5e1;
+      --border: #334155;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      transition: 0.3s;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .container {
+      width: 90%;
+      max-width: 1100px;
+      margin: auto;
+    }
+
+    /* =========================
+       NAVBAR
+    ========================== */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1000;
+      background: var(--card);
+      border-bottom: 1px solid var(--border);
+    }
+
+    nav {
+      height: 70px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      font-size: 25px;
+      font-weight: bold;
+      color: var(--primary);
+    }
+
+    .nav-links {
+      display: flex;
+      list-style: none;
+      gap: 30px;
+    }
+
+    .nav-links a {
+      font-weight: 500;
+      transition: 0.3s;
+    }
+
+    .nav-links a:hover {
+      color: var(--primary);
+    }
+
+    .nav-buttons {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .theme-btn,
+    .menu-btn {
+      border: none;
+      background: transparent;
+      font-size: 22px;
+      cursor: pointer;
+      color: var(--text);
+    }
+
+    .menu-btn {
+      display: none;
+    }
+
+    /* =========================
+       HERO
+    ========================== */
+    #home {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding-top: 70px;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 50px;
+      align-items: center;
+    }
+
+    .hero h1 {
+      font-size: clamp(40px, 6vw, 70px);
+      line-height: 1.1;
+      margin-bottom: 20px;
+    }
+
+    .hero h1 span {
+      color: var(--primary);
+    }
+
+    .hero p {
+      color: var(--muted);
+      font-size: 18px;
+      max-width: 600px;
+      margin-bottom: 30px;
+    }
+
+    .buttons {
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      padding: 13px 25px;
+      border-radius: 8px;
+      border: 2px solid var(--primary);
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: var(--secondary);
+      border-color: var(--secondary);
+      transform: translateY(-3px);
+    }
+
+    .btn-outline {
+      color: var(--primary);
+    }
+
+    .btn-outline:hover {
+      background: var(--primary);
+      color: white;
+    }
+
+    .profile-card {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      padding: 10px;
+      border-radius: 25px;
+      box-shadow: 0 20px 50px rgba(99, 102, 241, 0.3);
+    }
+
+    .profile-inner {
+      background: var(--card);
+      border-radius: 18px;
+      padding: 40px;
+      text-align: center;
+    }
+
+    .profile-icon {
+      width: 180px;
+      height: 180px;
+      margin: auto;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 70px;
+    }
+
+    /* =========================
+       SECTIONS
+    ========================== */
+    section {
+      padding: 100px 0;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+
+    .section-title h2 {
+      font-size: 40px;
+      margin-bottom: 10px;
+    }
+
+    .section-title p {
+      color: var(--muted);
+    }
+
+    /* =========================
+       ABOUT
+    ========================== */
+    .about {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 50px;
+      align-items: center;
+    }
+
+    .about-text p {
+      color: var(--muted);
+      margin-bottom: 15px;
+    }
+
+    .info-box {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+    }
+
+    .info {
+      background: var(--card);
+      border: 1px solid var(--border);
+      padding: 20px;
+      border-radius: 12px;
+    }
+
+    .info h3 {
+      color: var(--primary);
+      margin-bottom: 5px;
+    }
+
+    /* =========================
+       SKILLS
+    ========================== */
+    .skills {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .skill {
+      background: var(--card);
+      border: 1px solid var(--border);
+      padding: 25px;
+      border-radius: 12px;
+      transition: 0.3s;
+    }
+
+    .skill:hover {
+      transform: translateY(-7px);
+      border-color: var(--primary);
+    }
+
+    .skill h3 {
+      margin-bottom: 10px;
+    }
+
+    .skill p {
+      color: var(--muted);
+    }
+
+    /* =========================
+       PROJECTS
+    ========================== */
+    .projects {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 25px;
+    }
+
+    .project {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 15px;
+      overflow: hidden;
+      transition: 0.3s;
+    }
+
+    .project:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+    }
+
+    .project-image {
+      height: 180px;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 45px;
+    }
+
+    .project-content {
+      padding: 25px;
+    }
+
+    .project-content p {
+      color: var(--muted);
+      margin: 10px 0 20px;
+    }
+
+    /* =========================
+       CONTACT
+    ========================== */
+    .contact {
+      max-width: 700px;
+      margin: auto;
+    }
+
+    .contact form {
+      display: grid;
+      gap: 15px;
+    }
+
+    input,
+    textarea {
+      width: 100%;
+      padding: 15px;
+      border: 1px solid var(--border);
+      background: var(--card);
+      color: var(--text);
+      border-radius: 8px;
+      outline: none;
+      font-size: 16px;
+    }
+
+    input:focus,
+    textarea:focus {
+      border-color: var(--primary);
+    }
+
+    textarea {
+      min-height: 150px;
+      resize: vertical;
+    }
+
+    /* =========================
+       FOOTER
+    ========================== */
+    footer {
+      background: var(--card);
+      border-top: 1px solid var(--border);
+      text-align: center;
+      padding: 25px;
+      color: var(--muted);
+    }
+
+    /* =========================
+       ANIMATION
+    ========================== */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: 0.7s ease;
+    }
+
+    .fade-in.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* =========================
+       RESPONSIVE
+    ========================== */
+    @media (max-width: 800px) {
+      .nav-links {
+        position: absolute;
+        top: 70px;
+        left: 0;
+        width: 100%;
+        background: var(--card);
+        flex-direction: column;
+        text-align: center;
+        padding: 20px;
+        display: none;
+        border-bottom: 1px solid var(--border);
+      }
+
+      .nav-links.active {
+        display: flex;
+      }
+
+      .menu-btn {
+        display: block;
+      }
+
+      .hero,
+      .about {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        text-align: center;
+      }
+
+      .hero p {
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .buttons {
+        justify-content: center;
+      }
+
+      .skills,
+      .projects {
+        grid-template-columns: 1fr;
+      }
+
+      .info-box {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- =========================
+       NAVBAR
+  ========================== -->
+  <header>
+    <div class="container">
+      <nav>
+        <div class="logo">MyPortfolio</div>
+
+        <ul class="nav-links" id="navLinks">
+          <li><a href="#home">Home</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#skills">Skills</a></li>
+          <li><a href="#projects">Projects</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+
+        <div class="nav-buttons">
+          <button class="theme-btn" id="themeBtn">🌙</button>
+          <button class="menu-btn" id="menuBtn">☰</button>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+
+  <!-- =========================
+       HOME
+  ========================== -->
+  <section id="home">
+    <div class="container">
+      <div class="hero">
+
+        <div class="hero-content fade-in">
+          <h1>
+            Hi, I'm <span>JananiJK</span>
+          </h1>
+
+          <h2>Frontend Developer</h2>
+
+          <p>
+            I create modern, responsive and user-friendly websites
+            using HTML, CSS and JavaScript.
+          </p>
+
+          <div class="buttons">
+            <a href="#projects" class="btn btn-primary">
+              View Projects
+            </a>
+
+            <a href="#contact" class="btn btn-outline">
+              Contact Me
+            </a>
+          </div>
+        </div>
+
+        <div class="profile-card fade-in">
+          <div class="profile-inner">
+            <div class="profile-icon">
+              👨‍💻
+            </div>
+
+            <h2 style="margin-top:20px;">JananiJK</h2>
+            <p style="color:var(--muted);">
+              Web Developer
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- =========================
+       ABOUT
+  ========================== -->
+  <section id="about">
+    <div class="container">
+
+      <div class="section-title fade-in">
+        <h2>About Me</h2>
+        <p>Get to know me</p>
+      </div>
+
+      <div class="about">
+
+        <div class="about-text fade-in">
+          <h2>I'm a passionate web developer.</h2>
+
+          <p>
+            I enjoy building beautiful and functional websites
+            that provide a great user experience.
+          </p>
+
+          <p>
+            I focus on writing clean code and creating responsive
+            designs that work across desktop, tablet and mobile devices.
+          </p>
+
+          <a href="#contact" class="btn btn-primary">
+            Hire Me
+          </a>
+        </div>
+
+        <div class="info-box fade-in">
+
+          <div class="info">
+            <h3>Name</h3>
+            <p>Your Name</p>
+          </div>
+
+          <div class="info">
+            <h3>Email</h3>
+            <p>your@email.com</p>
+          </div>
+
+          <div class="info">
+            <h3>Location</h3>
+            <p>Your City, India</p>
+          </div>
+
+          <div class="info">
+            <h3>Experience</h3>
+            <p>2+ Years</p>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- =========================
+       SKILLS
+  ========================== -->
+  <section id="skills">
+    <div class="container">
+
+      <div class="section-title fade-in">
+        <h2>My Skills</h2>
+        <p>Technologies I work with</p>
+      </div>
+
+      <div class="skills">
+
+        <div class="skill fade-in">
+          <h3>🌐 HTML</h3>
+          <p>
+            Semantic and accessible HTML5 structures
+            for modern websites.
+          </p>
+        </div>
+
+        <div class="skill fade-in">
+          <h3>🎨 CSS</h3>
+          <p>
+            Responsive layouts, animations and modern
+            user interfaces.
+          </p>
+        </div>
+
+        <div class="skill fade-in">
+          <h3>⚡ JavaScript</h3>
+          <p>
+            Interactive web applications and dynamic
+            functionality.
+          </p>
+        </div>
+
+        <div class="skill fade-in">
+          <h3>📱 Responsive Design</h3>
+          <p>
+            Websites that work perfectly on mobile,
+            tablet and desktop.
+          </p>
+        </div>
+
+        <div class="skill fade-in">
+          <h3>🔧 Git</h3>
+          <p>
+            Version control and collaborative development
+            using Git.
+          </p>
+        </div>
+
+        <div class="skill fade-in">
+          <h3>🚀 Web Development</h3>
+          <p>
+            Building complete modern websites from
+            design to deployment.
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- =========================
+       PROJECTS
+  ========================== -->
+  <section id="projects">
+    <div class="container">
+
+      <div class="section-title fade-in">
+        <h2>My Projects</h2>
+        <p>Some of my recent work</p>
+      </div>
+
+      <div class="projects">
+
+        <div class="project fade-in">
+          <div class="project-image">
+            💻
+          </div>
+
+          <div class="project-content">
+            <h3>Portfolio Website</h3>
+
+            <p>
+              A modern responsive portfolio website
+              created using HTML, CSS and JavaScript.
+            </p>
+
+            <a href="#" class="btn btn-primary">
+              View Project
+            </a>
+          </div>
+        </div>
+
+
+        <div class="project fade-in">
+          <div class="project-image">
+            🛒
+          </div>
+
+          <div class="project-content">
+            <h3>E-Commerce Website</h3>
+
+            <p>
+              A responsive online shopping website
+              with product cards and interactive UI.
+            </p>
+
+            <a href="#" class="btn btn-primary">
+              View Project
+            </a>
+          </div>
+        </div>
+
+
+        <div class="project fade-in">
+          <div class="project-image">
+            ☁️
+          </div>
+
+          <div class="project-content">
+            <h3>Weather App</h3>
+
+            <p>
+              A JavaScript weather application with
+              a clean and responsive interface.
+            </p>
+
+            <a href="#" class="btn btn-primary">
+              View Project
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- =========================
+       CONTACT
+  ========================== -->
+  <section id="contact">
+    <div class="container">
+
+      <div class="section-title fade-in">
+        <h2>Contact Me</h2>
+        <p>Let's work together</p>
+      </div>
+
+      <div class="contact fade-in">
+
+        <form id="contactForm">
+
+          <input
+            type="text"
+            id="name"
+            placeholder="Your Name"
+            required
+          >
+
+          <input
+            type="email"
+            id="email"
+            placeholder="Your Email"
+            required
+          >
+
+          <textarea
+            id="message"
+            placeholder="Your Message"
+            required
+          ></textarea>
+
+          <button type="submit" class="btn btn-primary">
+            Send Message
+          </button>
+
+        </form>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- =========================
+       FOOTER
+  ========================== -->
+  <footer>
+    <p>
+      © <span id="year"></span> Your Name. All Rights Reserved.
+    </p>
+  </footer>
+
+
+  <!-- =========================
+       JAVASCRIPT
+  ========================== -->
+  <script>
+
+    // Mobile Menu
+    const menuBtn = document.getElementById("menuBtn");
+    const navLinks = document.getElementById("navLinks");
+
+    menuBtn.addEventListener("click", () => {
+      navLinks.classList.toggle("active");
+
+      if (navLinks.classList.contains("active")) {
+        menuBtn.textContent = "✕";
+      } else {
+        menuBtn.textContent = "☰";
+      }
+    });
+
+
+    // Close mobile menu when clicking a link
+    document.querySelectorAll(".nav-links a").forEach(link => {
+      link.addEventListener("click", () => {
+        navLinks.classList.remove("active");
+        menuBtn.textContent = "☰";
+      });
+    });
+
+
+    // Dark Mode
+    const themeBtn = document.getElementById("themeBtn");
+
+    themeBtn.addEventListener("click", () => {
+
+      document.body.classList.toggle("dark");
+
+      if (document.body.classList.contains("dark")) {
+        themeBtn.textContent = "☀️";
+        localStorage.setItem("theme", "dark");
+      } else {
+        themeBtn.textContent = "🌙";
+        localStorage.setItem("theme", "light");
+      }
+
+    });
+
+
+    // Load saved theme
+    if (localStorage.getItem("theme") === "dark") {
+      document.body.classList.add("dark");
+      themeBtn.textContent = "☀️";
+    }
+
+
+    // Contact Form
+    const contactForm = document.getElementById("contactForm");
+
+    contactForm.addEventListener("submit", function(event) {
+
+      event.preventDefault();
+
+      const name = document.getElementById("name").value;
+
+      alert(
+        "Thank you, " + name + "! Your message has been received."
+      );
+
+      contactForm.reset();
+    });
+
+
+    // Current Year
+    document.getElementById("year").textContent =
+      new Date().getFullYear();
+
+
+    // Scroll Animation
+    const elements = document.querySelectorAll(".fade-in");
+
+    const observer = new IntersectionObserver(
+      entries => {
+
+        entries.forEach(entry => {
+
+          if (entry.isIntersecting) {
+            entry.target.classList.add("show");
+          }
+
+        });
+
+      },
+      {
+        threshold: 0.15
+      }
+    );
+
+    elements.forEach(element => {
+      observer.observe(element);
+    });
+
+  </script>
+
+</body>
+</html>
